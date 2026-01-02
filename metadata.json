@@ -1,0 +1,5 @@
+{
+  "name": "Lumina PWA",
+  "description": "A world-class, offline-first productivity suite built with React and PWA standards.",
+  "requestFramePermissions": []
+}

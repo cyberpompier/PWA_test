@@ -1,0 +1,26 @@
+
+{
+  "name": "Lumina Dashboard",
+  "short_name": "Lumina",
+  "description": "Votre tableau de bord productivité hors-ligne",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "public/icon-192.png
+      ",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "public/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
