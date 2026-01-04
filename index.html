@@ -4,37 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Lumina PWA</title>
+    <title>Lumina | Productivité</title>
     
-    <!-- Meta tags for PWA -->
+    <!-- PWA / Mobile Meta -->
     <meta name="theme-color" content="#4f46e5">
-    <meta name="description" content="Une PWA moderne et performante">
+    <meta name="description" content="Une PWA ultra-rapide conçue pour l'efficacité.">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Lumina">
     
-    <!-- PWA Essential Links -->
-    <link rel="manifest" href="/manifest.json">
+    <!-- Icons -->
+    <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSI4MCIgZmlsbD0iIzRGNDZFNSIvPjxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMTAwIiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==">
     
-    <!-- Tailwind CSS -->
+    <!-- Scripts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <style>
-        body {
-            background-color: #f8fafc;
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-        #root {
-            min-height: 100vh;
-        }
-        /* Fix for iOS safe areas */
-        .safe-top { padding-top: env(safe-area-inset-top); }
-        .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
-    </style>
     <script type="importmap">
 {
   "imports": {
@@ -46,18 +30,41 @@
   }
 }
 </script>
+    
+    <style>
+        :root {
+            --safe-area-top: env(safe-area-inset-top);
+            --safe-area-bottom: env(safe-area-inset-bottom);
+        }
+        body {
+            background-color: #FDFDFF;
+            margin: 0;
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        #root { min-height: 100vh; }
+        
+        /* Smooth Scroll for PWA */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* iOS Notch support */
+        header { padding-top: calc(1rem + var(--safe-area-top)); }
+        footer { padding-bottom: calc(1.5rem + var(--safe-area-bottom)); }
+    </style>
 </head>
 <body>
     <div id="root"></div>
-    
-    <script type="module" src="/index.tsx"></script>
-    
+    <script type="module" src="index.tsx"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(reg => console.log('Lumina SW Registered!', reg.scope))
-                    .catch(err => console.log('Lumina SW Registration failed:', err));
+                // Utilisation d'un chemin relatif strict sans slash initial
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(reg => console.log('Lumina SW Active:', reg.scope))
+                    .catch(err => console.error('Lumina SW Error:', err));
             });
         }
     </script>

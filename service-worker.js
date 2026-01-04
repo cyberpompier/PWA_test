@@ -1,18 +1,19 @@
 
-const CACHE_NAME = 'lumina-v2';
+const CACHE_NAME = 'lumina-v2.1';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/index.tsx',
-  '/App.tsx',
-  '/types.ts',
+  './',
+  'index.html',
+  'manifest.json',
+  'index.tsx',
+  'App.tsx',
+  'types.ts',
   'https://cdn.tailwindcss.com'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
+      console.log('[Lumina SW] Caching core assets');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
@@ -21,11 +22,12 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
+    caches.keys().then((keys) => {
       return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            console.log('[Lumina SW] Removing old cache', key);
+            return caches.delete(key);
           }
         })
       );
@@ -35,23 +37,24 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).then((networkResponse) => {
-        if (event.request.method === 'GET' && networkResponse.status === 200) {
-          const responseToCache = networkResponse.clone();
+    caches.match(event.request).then((cached) => {
+      const networked = fetch(event.request)
+        .then((response) => {
+          if (!response || response.status !== 200) {
+            return response;
+          }
+          const cacheCopy = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
+            cache.put(event.request, cacheCopy);
           });
-        }
-        return networkResponse;
-      }).catch(() => {
-        // Simple offline fallback
-        return new Response('Offline content unavailable');
-      });
+          return response;
+        })
+        .catch(() => cached);
+
+      return cached || networked;
     })
   );
 });
