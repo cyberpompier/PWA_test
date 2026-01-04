@@ -147,7 +147,7 @@ const App: React.FC = () => {
                 <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <PlusIcon />
                 </div>
-                <h3 className="text-slate-900 font-semibold">Aucune tâche pour le moment</h3>
+                <h3 className="text-slate-900 font-semibold">Aucune TACHE pour le moment</h3>
                 <p className="text-slate-500 text-sm mt-1">Commencez par en ajouter une ci-dessus.</p>
               </div>
             ) : (
