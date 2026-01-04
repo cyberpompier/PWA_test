@@ -1,5 +1,5 @@
 {
   "name": "Lumina PWA",
-  "description": "A world-class, offline-first productivity suite built with React and PWA standards.",
+  "description": "Une suite de productivité moderne, rapide et installable, fonctionnant parfaitement sans connexion.",
   "requestFramePermissions": []
 }
