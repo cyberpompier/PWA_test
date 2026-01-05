@@ -226,7 +226,7 @@ const App: React.FC = () => {
 
         <footer className="mt-12 text-center">
           <p className="text-[9px] font-black text-slate-300 uppercase tracking-[0.3em]">
-            Optimisé pour l'expérience PWA native
+            Optimisé pour l'expérience PWA Native
           </p>
         </footer>
       </div>
